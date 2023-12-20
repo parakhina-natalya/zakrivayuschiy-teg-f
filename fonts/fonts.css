@@ -15,6 +15,5 @@
     local('Inter-Variable'),
     url('./Inter-Variable.woff2') format('woff2 supports variations'),
     url('./Inter-Variable.woff2') format('woff2-variations');
-  /* font-weight: [300] [785];  */
-  /* font-stretch: [минимальное значение%] [максимальное значение%]; */
+  font-weight: 400, 785;
 }

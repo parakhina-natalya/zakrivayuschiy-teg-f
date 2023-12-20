@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   font-family: var(--font-family, 'Inter-Variable', sans-serif);
-  font-weight: var(--text-font-weight, 400);
+  font-variation-settings: var(--text-font-weight, 400);
   font-size: 18px;
   font-style: normal;
   line-height: normal;
@@ -124,7 +124,6 @@
   }
 }
 
-
 .cards {
   display: flex;
   flex-direction: column;
@@ -169,12 +168,13 @@
     0 -1px var(--text-stroke, #fff);
 }
 
-/* @supports ((text-stroke: 1px var(--text-stroke, #fff)) or (-webkit-text-stroke: 1px var(--text-stroke, #fff))) {
+@supports ((text-stroke: 1px var(--text-stroke, #fff)) or (-webkit-text-stroke: 1px var(--text-stroke, #fff))) {
   .stroke {
     -webkit-text-stroke: 1px var(--text-stroke, #fff);
+    text-stroke: 1px var(--text-stroke, #fff);
     text-shadow: none;
   }
-} */
+}
 
 .card__wrap-text {
   padding: 23px 25px 25px;
