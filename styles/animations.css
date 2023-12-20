@@ -1,14 +1,87 @@
-/* Опишите в этом файле все keyframes для проекта и стили анимаций иконки Like.
+@keyframes arrow {
+  from {
+    left: -18px;
+  }
+}
 
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
+@keyframes heart-scale {
+  0% {
+    transform: scale(1);
+  }
 
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-*/
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes sparks {
+  from {
+    opacity: 1;
+  }
+}
+
+/* __________ ANIMATION HEART__________ */
+
+.core {
+  fill: transparent;
+  transition: fill 0.3s ease-out 0.03s;
+}
+
+.main-body {
+  fill: transparent;
+  transition: fill 0.3s ease-out;
+}
+
+.sparks {
+  opacity: 0;
+}
+
+/* __________ hover ___________ */
+
+.like-icon:hover .core {
+  fill: var(--accent-theme-color, #000);
+  transition: fill 0.3s linear;
+}
+
+.like-icon:hover .main-body {
+  fill: var(--accent-theme-color, #000);
+  transition: fill 0.3s linear 0.05s;
+}
+
+/* __________ active __________ */
+
+.like-icon:active .core {
+  fill: var(--main-body-color, #ff0000);
+  transition: fill 0.3s linear;
+}
+
+.like-icon:active .main-body {
+  fill: var(--main-body-color, #ff0000);
+  transition: fill 0.3s linear 0.05s;
+}
+
+/* __________ click __________ */
+
+.like-icon.is-liked .core {
+  fill: var(--main-body-color, #ff0000);
+  transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked .main-body {
+  fill: var(--main-body-color, #ff0000);
+  transition: fill 0.3s linear 0.05s;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--main-body-color, #ff0000);
+  transition: fill 0.3s linear 0.06s;
+}
+
+.like-icon.is-liked .heart {
+  animation: heart-scale 0.3s 0.1s ease-in alternate;
+  transform-origin: center;
+}
+
+.like-icon.is-liked .sparks {
+  animation: sparks 0.3s 0.3s ease-in alternate;
+}

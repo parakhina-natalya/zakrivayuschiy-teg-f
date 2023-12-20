@@ -1,20 +1,319 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-
-*/
-
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  padding-block-start: 102px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family, 'Inter-Variable', sans-serif);
+  font-weight: var(--text-font-weight, 400);
+  font-size: 18px;
+  font-style: normal;
+  line-height: normal;
+  color: var(--text-color, #000);
+  background-color: var(--background-color, #fff);
+  background-attachment: fixed;
+  background-image:
+    repeating-linear-gradient(to right,
+      var(--repeating-linear-gradient, #d3d3d3) 0 2px,
+      #00000000 2px 4px),
+    repeating-linear-gradient(to bottom,
+      var(--repeating-linear-gradient, #d3d3d3) 0 2px,
+      #00000000 2px 4px),
+    linear-gradient(var(--linear-gradient, #e7e7e7) 0.01%,
+      var(--accent-linear-gradient, #1a1a1a));
+  background-size: 100% 100dvb;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.section {
+  inline-size: min(100%, 696px);
+  margin: 0 auto;
+}
+
+.element-border,
+.section-border {
+  background-color: var(--background-color, #fff);
+  outline: 2px solid var(--accent-theme-color, #000);
+}
+
+.header {
+  block-size: clamp(323px, 19.2852rem + 3.8498vw, 364px);
+  padding-block-end: 19px;
+  margin-block-end: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 25px;
+}
+
+.header__title {
+  font-family: var(--accent-font-family, 'Press Start 2P', sans-serif);
+  font-size: clamp(3.0625rem, 1.8943rem + 4.9844vw, 4.0625rem);
+  text-transform: uppercase;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px;
+}
+
+.header__subtitle {
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+}
+
+.header__theme-menu {
+  margin: 0 auto;
+  padding-inline-start: 19px;
+}
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.theme-menu__button {
+  font-family: var(--accent-font-family, 'Press Start 2P', sans-serif);
+  line-height: normal;
+  text-transform: uppercase;
+  border: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  &:disabled::before {
+    content: '▶';
+    position: absolute;
+    inset-inline-start: -20px;
+    animation: arrow 0.5s infinite ease-in-out alternate;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    transform: scale(0);
+    transform-origin: left;
+    block-size: 3px;
+    margin-block-start: 3px;
+    background-color: currentColor;
+    transition: transform 0.3s ease;
+    opacity: 0.6;
+  }
+
+  &:focus {
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    opacity: 0.6;
+  }
+
+  &:focus-visible:after {
+    transform: scale(1);
+  }
+}
+
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.card__heading {
+  font-weight: var(--heading-card-font-weight, 700);
+  font-size: 18px;
+  padding: 6px 10px;
+}
+
+.card__image {
+  outline: 2px solid var(--accent-theme-color, #000);
+  inline-size: 100%;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1 / 1;
+}
+
+.card__wrap-image {
+  position: relative;
+}
+
+.card__image-label {
+  position: absolute;
+  inset-inline-end: 25px;
+  inset-block-start: 25px;
+  font-family: var(--accent-font-family, 'Press Start 2P', sans-serif);
+  mix-blend-mode: hard-light;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  opacity: 0.5;
+}
+
+.stroke {
+  text-shadow: -1px 0 var(--text-stroke, #fff),
+    0 1px var(--text-stroke, #fff),
+    1px 0 var(--text-stroke, #fff),
+    0 -1px var(--text-stroke, #fff);
+}
+
+/* @supports ((text-stroke: 1px var(--text-stroke, #fff)) or (-webkit-text-stroke: 1px var(--text-stroke, #fff))) {
+  .stroke {
+    -webkit-text-stroke: 1px var(--text-stroke, #fff);
+    text-shadow: none;
+  }
+} */
+
+.card__wrap-text {
+  padding: 23px 25px 25px;
+}
+
+.card__descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  padding-block-end: 25px;
+}
+
+.card__paragraph {
+  font-weight: var(--text-font-weight, 400);
+}
+
+.card__button-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+
+.button {
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--accent-theme-color, #000);
+  line-height: 1.26;
+
+  &:not(.card__icon-button)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: scaleX(0);
+    transform-origin: 0;
+    background-color: var(--hover-color, #fff);
+    mix-blend-mode: difference;
+    transition: 0.5s ease-in-out;
+  }
+
+  &:not(.card__icon-button):hover::after {
+    transform: scaleX(1);
+  }
+
+  &:not(.card__icon-button):focus-visible {
+    box-shadow: 2px 2px 0 0 var(--accent-theme-color, #000);
+  }
+}
+
+.button__text {
+  position: relative;
+}
+
+.card__like-button {
+  inline-size: 130px;
+  block-size: 38px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card__icon-button {
+  border: none;
+}
+
+.like-icon {
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.card__icon-button:focus-visible .like-icon {
+  border: 2px solid var(--accent-theme-color, #000);
+}
+
+.footer {
+  padding-block-start: 54px;
+  padding-block-end: 100px;
+}
+
+.footer__save-button {
+  background-color: var(--background-color, #fff);
+  inline-size: clamp(306px, 17.0076rem + 9.0343vw, 336px);
+  transition: box-shadow 0.3s ease;
+}
+
+.footer__save-button-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 15px 12px;
+  gap: 8px;
+}
+
+.button__icon-floppy {
+  inline-size: 21px;
+}
+
+/* __________ POPUP __________ */
+
+.popup {
+  border: 2px solid var(--accent-theme-color, #000);
+  background-color: var(--background-color, #fff);
+  padding: 30px;
+  padding-inline: clamp(40px, 49.375rem + -200vw, 30px);
+}
+
+.popup_opened {
+  padding-block-end: 30px;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  gap: 20px;
+}
+
+.button__popup {
+  inline-size: min(100%, (clamp(16.0625rem, 13.434rem + 11.215vw, 18.3125rem)));
+  border: 2px solid var(--accent-theme-color, #000);
+  color: var(--text-color, #000);
+  block-size: 38px;
+  margin: 0 auto;
+}
+
+.popup__text {
+  font-family: var(--accent-font-family, 'Press Start 2P', sans-serif);
+  color: var(--text-color, #000);
+  text-transform: uppercase;
+  font-style: normal;
+  inline-size: 234px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.popup::backdrop {
+  background-color: #000;
+  opacity: 0.75;
+}
+
+.popup__icon-floppy {
+  color: var(--text-color, #000);
+  inline-size: 39px;
+  block-size: 39px;
 }
